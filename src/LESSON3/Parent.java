@@ -1,19 +1,19 @@
 package LESSON3;
 
 public class Parent {
-    private Strig name="";
+
+    private String name = "";
 
     public String mutator(String v){
-        name+=v;
+        name += v;
         return name;
-
-
     }
     public String getName(){
         return name;
-
     }
+
+
     public String action(){
-        return "parent" ;
+        return "parent";
     }
 }
