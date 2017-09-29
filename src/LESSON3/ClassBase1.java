@@ -1,4 +1,4 @@
-package LESSON3;
+/*package LESSON3;
 
 public class ClassBase1 {
     static public void main(String[] arg){
@@ -9,4 +9,4 @@ public class ClassBase1 {
         Constructor c2 = new Constructor("kiwan", "maeng");
         System.out.println(c2.getName());
     }
-}
+}*/

@@ -1,3 +1,4 @@
+/*
 package LESSON3;
 
 public class Constructor {
@@ -18,4 +19,4 @@ public class Constructor {
     public String getName(){
         return firstName + " " + lastName;
     }
-}
+}*/

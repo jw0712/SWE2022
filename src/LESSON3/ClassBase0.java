@@ -1,4 +1,4 @@
-package LESSON3;
+/*package LESSON3;
 
 public class ClassBase0 {
     static public void main(String[] arg){
@@ -19,6 +19,6 @@ public class ClassBase0 {
         String b = null;
         System.out.println(b.length());
         */
-        a = null;
+        /*a = null;
     }
-}
+}*/

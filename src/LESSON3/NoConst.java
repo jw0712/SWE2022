@@ -1,4 +1,4 @@
-package LESSON3;
+/*package LESSON3;
 
 public class NoConst {
     public String getFirstName(Constructor c){
@@ -6,3 +6,4 @@ public class NoConst {
 
     }
 }
+*/
