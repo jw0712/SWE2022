@@ -1,8 +1,8 @@
-/*package LESSON3;
+package LESSON3;
 
 public class ClassBase0 {
-    static public void main(String[] arg){
-        Parent parent = new Child2(); //대체가능성
+    static public void main(String arg[]){
+        Parent parent = new Child(); //대체가능성
 
         System.out.println( parent.action() );//내적일관성
 

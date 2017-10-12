@@ -8,12 +8,19 @@ public class Parent {
         name += v;
         return name;
     }
+
+
+
     public String getName(){
+
         return name;
     }
 
 
+
+
     public String action(){
+
         return "parent";
     }
 }
