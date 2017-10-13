@@ -1,4 +1,4 @@
-package lesson4.network;
+/*package lesson4.network;
 
 import java.util.ArrayList;
 
@@ -30,5 +30,5 @@ public class Network2 {
     }
     public void unenroll(Member member){
         members.remove(member);
-    }
+    }*/
 }
