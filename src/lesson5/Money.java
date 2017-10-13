@@ -18,6 +18,6 @@ public class Money {
     }
 
     public int getMoney(Currency currency) {
-        return currency.changeMoney(this.currency,this.quantity)
+        return currency.changeMoney(this.currency,this.quantity);
     }
 }

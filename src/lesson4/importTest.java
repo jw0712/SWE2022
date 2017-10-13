@@ -1,4 +1,4 @@
-package lesson4;
+/*package lesson4;
 
 import lesson4.sample.imported;
 //import lesson4.sample.imported.*;
@@ -14,3 +14,4 @@ public class importTest {
         Class2Class1 c2 = new Class2Class1();
     }
 }
+*/

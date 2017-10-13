@@ -1,4 +1,4 @@
-package lesson4;
+/*package lesson4;
 
 import lesson4.network.Network;
 import lesson4.network.Network2;
@@ -24,3 +24,4 @@ public class NetworkTest {
     }
 
 }
+*/

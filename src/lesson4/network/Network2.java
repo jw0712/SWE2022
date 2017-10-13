@@ -31,4 +31,4 @@ public class Network2 {
     public void unenroll(Member member){
         members.remove(member);
     }*/
-}
+

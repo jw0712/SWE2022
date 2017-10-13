@@ -1,4 +1,4 @@
-package lesson4;
+/*package lesson4;
 
 import lesson4.sample.imported;
 
@@ -24,3 +24,4 @@ public class StaticInnerClass {
 
     }
 }
+*/
