@@ -11,5 +11,6 @@ public class Employee implements Comparable<Employee> {
         if(this.salary>other.salary) return -1;
         if(this.salary==other.salary) return 0;
         if(this.salary<other.salary) return 1;
+
     }
 }

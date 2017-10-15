@@ -28,8 +28,16 @@ public class Constructor {
     public Constructor(String firstName, String lastName){
         this.firstName = firstName;
         this.lastName = lastName;
+
+    }
+    static public int plus(int a, int b){
+        return a+b;
     }
     public String getName(){
+        int a = this.plus(3,5);
+        int b = plus(6,7);
+        int c = Constructor.plus(6,7);
+
         //return firstName + " " + lastName;
         return this.firstName+this.seperator+this.lastName;
     }
