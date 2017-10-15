@@ -16,6 +16,7 @@ public class Network {
         public void leave(){ //여기까진 ok
             //members.remove(this); 캡슐화를 어겼으므로 Network의 내장을 Member가 뜯어보는 것. Member는 Network의 소속일 뿐...!! 어떻게 remove하는지는 몰라야 함 멤버스가..
             //unenroll(this); //캡슐화 **
+            unenroll(this);
         }
         public boolean belongTo(Network n){
             return n == Network.this;
@@ -26,7 +27,7 @@ public class Network {
 
     public Member enroll(String name){
         //this == new Network() == net1 == newMember.outer
-        Member newMember = new Member(name);
+        Member newMember = this.new Member(name);
         members.add(newMember);
         return newMember;
     }

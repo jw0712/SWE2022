@@ -1,4 +1,4 @@
-/*package lesson4.network;
+package lesson4.network;
 
 import java.util.ArrayList;
 
@@ -8,7 +8,7 @@ public class Network2 {
         private String name;
         private ArrayList<Member> friends = new ArrayList<>();
 
-        public Member(Network2 outer.String name){
+        public Member(Network2 outer, String name){
             this.outer = outer;
             this.name = name;
 
@@ -24,11 +24,11 @@ public class Network2 {
     private ArrayList<Member> members = new ArrayList<>();
 
     public Member enroll(String name){
-        Member newMember = new Member(outer,this.name);
+        Member newMember = new Member(this, name);
         members.add(newMember);
         return newMember;
     }
     public void unenroll(Member member){
         members.remove(member);
-    }*/
+    }
 

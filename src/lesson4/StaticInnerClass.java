@@ -1,4 +1,4 @@
-/*package lesson4;
+package lesson4;
 
 import lesson4.sample.imported;
 
@@ -17,11 +17,11 @@ public class StaticInnerClass {
     }
     static public void main(String[] arg){
         //Class1 c= new Class1();
-        lesson4.StaticInnerClass.Class1 c = new StaticInnerClass.Class1(); ////qualitified full name
+        lesson4.StaticInnerClass.Class1.Class1Class1 c = new StaticInnerClass.Class1.Class1Class1();
+        ////qualitified full name
         System.out.println(imported.getText());
 
 
 
     }
 }
-*/
