@@ -15,6 +15,6 @@ public class Main {
 
         Employee[] employees = {me, you};
         Arrays.sort(employees);
-        System.out.println(employees[0] + ":" + employees[1])
+        System.out.println(employees[0] + ":" + employees[1]);
     }
 }

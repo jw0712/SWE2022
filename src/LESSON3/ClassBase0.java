@@ -1,7 +1,7 @@
-/*package LESSON3;
+package LESSON3;
 
 public class ClassBase0 {
-    static public void main(String arg[]){
+    static public void main(String[] args){
         Parent parent = new Child(); //대체가능성
 
         System.out.println( parent.action() );//내적일관성
@@ -19,6 +19,6 @@ public class ClassBase0 {
         String b = null;
         System.out.println(b.length());
         */
-        /*a = null;
+        a = null;
     }
-}*/
+}
