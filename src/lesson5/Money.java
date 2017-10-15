@@ -14,10 +14,10 @@ public class Money {
 
     public Money (Currency currency, int q){
         this.currency=currency;
-        this.quantity = 0;
+        this.quantity = q;
     }
 
     public int getMoney(Currency currency) {
-        return currency.changeMoney(this.currency,this.quantity);
+        return currency.changeMoney(this.currency, this.quantity);
     }
 }

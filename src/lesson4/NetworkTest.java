@@ -12,11 +12,11 @@ public class NetworkTest {
         Network.Member fredblahblah = net1.enroll("fred");
 
         System.out.println((fredblahblah.belongTo(net2)));
-        Network.Member jane = net1.new Member("jane");
+        //Network.Member jane = net1.new Member("jane");
         Network.Member tom = net2.new Member("tom");
 
         Network2 n1 = new Network2();
-        Network.Member jane = net1.new Member("jane");
+        Network.Member d = net1.new Member("d");
 
         Network2 n2 = new Network2();
         Network2.Member a = n1.enroll("a");
