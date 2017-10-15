@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 public class Constructor {
 
-    private String firstName;
-    private String lastName;
+    final String firstName;
+    private final String lastName;
     private String seperator;
     private ArrayList<String> friends;
     {
@@ -25,15 +25,15 @@ public class Constructor {
     public Constructor(String fname){
         this(fname, "doe");
     }
-    public Constructor(String fname, String lname){
-        firstName = fname;
-        lastName = lname;
+    public Constructor(String firstName, String lastName){
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
     public String getName(){
         //return firstName + " " + lastName;
-        return firstName+seperator+lastName;
+        return this.firstName+this.seperator+this.lastName;
     }
     public String getFriend(int index){
-        return friends.get(index);
+        return this.friends.get(index)+" is "+this.getName() + "'s friend.";
     }
 }
