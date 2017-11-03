@@ -9,13 +9,6 @@ public class LocalClassTest {
     }
     private static Random generator = new Random();
     public static IntSquence randomints(int low, int high){
-        class RandomSquence implements IntSquence{
-
-            @Override
-            public int next() {
-                return low + generator.nextInt(high-low+1);
-            }
-        }
-        return new RandomSquence();
+        return()-> low + generator.nextInt(high-low+1); //람다 최고~ 함수형 인터페이스니까 람다 표현식으로
     }
 }
