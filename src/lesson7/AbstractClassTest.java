@@ -1,4 +1,4 @@
-package lesson7;
+/*package lesson7;
 
 public class AbstractClassTest {
     static abstract class Person{
@@ -6,13 +6,13 @@ public class AbstractClassTest {
         /*public Person(){this.name="";}
         public Person(String name){this.name=name;}
         public final String getName(){return name;}
-        */
+
         public abstract int getId();
         //바디가 없음. 인터페이스와 비슷하지만, 가시성을 지정할 수 있다는 것이 특징.(public/private/protected ...)
         // abstract class 에서만 abstract method 선언 가능. 일반 클래스에서는 abstract method 선언 불가능.
 
         }
-    static class Student extends Person{
+    static abstract class Student extends Person{
         private int id;
         public Student(String name, int id) {
             //super(name); //superset의 생성자를 반드시 호출할 책임이 있다.. 가장 앞에 반드시 가잦ㅇ 앞에!!
@@ -31,3 +31,4 @@ public class AbstractClassTest {
         //Person p2 = ()->0; //abstract class는 람다로 쓸 수 없어욤. 인터페이스만 람다로 받을 수 있어욤.
     }
 }
+*/
