@@ -1,6 +1,6 @@
 package lesson8;
 
-public class CloneMain {
+public class CloneMain {/*
     static public void main(String[] args){
         Base b1 = new Base(10);
         Owner o1 = new Owner(10, b1);
@@ -15,5 +15,5 @@ public class CloneMain {
         b2.baseValue = 20;
         System.out.println(o2.getBase().baseValue);
 
-    }
+    }*/
 }
