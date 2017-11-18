@@ -13,30 +13,60 @@ public class TodoList {
     private TodoTheme listTheme;
     boolean listSorted;
 
+
+    //생성자
     public TodoList(String listname){
         this.listName=listname;
-        ArrayList<TodoTask> todoTasks = new ArrayList<>();
-        boolean listSorted = false;
+        this.todoTasks = new ArrayList<>();
+        this.listSorted = false;
+        this.listTheme = new TodoTheme();
     }
+
+
+
+
     //이름 재설정하기
     public void setListName(String newName){
         this.listName=newName;
     }
 
+
+
+
     /*정렬 방식: 제목(ABC...)/기한/만든날짜 /완료여부/myday 추가여부
     *넘 많다..천천히.. */
     public void sortByUpper(){
     }
+
+
+
     //테마변경
-    public void changeTheme(String newColor){
-
+    public void changeThemeColor(TodoTheme.TodoThemeColors newColor){
+        listTheme.changeThemeColor(newColor);
     }
-    //목록삭제
-    public void deleteList(){
-
+    public void changeThemeImage(TodoTheme.TodoThemeImages newImage){
+        listTheme.changeThemeImage(newImage);
     }
+
+
+
+    //목록삭제 . 요청한 task가 목록 안에 있을 때만 삭제
+    public void deleteTask(TodoTask task){
+        if (todoTasks.contains(task)) {this.todoTasks.remove(task);}
+    }
+
+
+
     //할일 추가
     public void addTask(TodoTask newTask){
+        this.listSorted=false;
+        todoTasks.add(newTask);
+    }
 
+    public String getList(){
+        if (todoTasks.isEmpty()) return "목록이 비어있습니다. 할 일을 추가해주세요";
+        else return todoTasks.toString();
     }
 }
+
+
