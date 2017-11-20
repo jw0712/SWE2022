@@ -39,6 +39,7 @@ public class TodoList {
     //정렬 방식
     public enum sorting {CHR, REVERSE_CHR, DEADLINE,REVERSE_DEADLINE, CREATINGTIME, REVERSE_CREATINGTIME, COMPLETED, REVERSE_COMPLETED};
     public void sortTask(sorting sortingOption){
+        this.listSorted = true;
         switch(sortingOption){
             case CHR:Collections.sort(todoTasks, sortByChr);
                 break;
