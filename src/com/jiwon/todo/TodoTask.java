@@ -11,6 +11,7 @@ public class TodoTask{
     private boolean completed = false;
     private LocalDate deadline; //기본 마감기한은 오늘
     private LocalDate alarmTime=null;
+    private final LocalDate creatingTime=LocalDate.now(); //생성 시점은 final
 
     //생성자
     public TodoTask(String taskName){
@@ -18,6 +19,7 @@ public class TodoTask{
         this.completed = false;
         this.deadline = LocalDate.now();//오늘
         this.alarmTime = null;
+
     }
 
 
@@ -65,7 +67,7 @@ public class TodoTask{
         this.alarmTime = LocalDate.of(yy,mm,dd);
     }
     //알림 타임 삭제
-    public void deleteAlarmTime(){
+    public void removeAlarmTime(){
         this.alarmTime=null;
     }
     //미리 알림 시간이 되었는가 확인
@@ -78,5 +80,23 @@ public class TodoTask{
     public boolean isAlarm(TodoTask task){
         if (task.check()==true) return true;
         else return false;
+    }
+
+
+
+    public String getName() {
+        return this.taskName;
+    }
+
+    public LocalDate getDeadline() {
+        return this.deadline;
+    }
+
+    public LocalDate getCreatingTime() {
+        return creatingTime;
+    }
+
+    public boolean getCompleted() {
+        return this.completed;
     }
 }
