@@ -1,15 +1,23 @@
 package com.jiwon.todo;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+
 
 public class TodoList {
     /*가지고 있어야 할 것
     속성: 이름, task목록, 테마
     메소드: 이름 수정, 정렬하기, 테마 변경, 목록 삭제, 할일 추가, 빈목록출력(getlist)
-    할수잇ㅅ서..
+
+    <과제3>
+    addTodo (taskname, deadline, alarmDate) : todoList에 추가하고 리스트 출력
+          출력 형식: [완료여부] 할일명, 완료일, 데드라인, 알림여부
     */
+
+
     private String listName;
     ArrayList<TodoTask> todoTasks = new ArrayList<>();
     private TodoTheme listTheme;
@@ -29,10 +37,6 @@ public class TodoList {
     //이름 재설정하기
     public void setListName(String newName){
         this.listName=newName;
-    }
-
-    public Object getName() {
-        return listName;
     }
 
 
@@ -59,12 +63,12 @@ public class TodoList {
                 Comparator sortByCreation2 = Comparator.reverseOrder();
                 Collections.sort(todoTasks, sortByCreation2);
                 break;
-            case COMPLETED:Collections.sort(todoTasks, sortByCompleted);
+            /*case COMPLETED:Collections.sort(todoTasks, sortByCompleted);
                 break;
             case REVERSE_COMPLETED:
                 Comparator sortByCompleted2 = Comparator.reverseOrder();
                 Collections.sort(todoTasks, sortByCompleted2);
-                break;
+                break;*/
         }
     }
 
@@ -93,12 +97,82 @@ public class TodoList {
         todoTasks.add(newTask);
     }
 
-    public String getList(){
-        if (todoTasks.isEmpty()) return "목록이 비어있습니다. 할 일을 추가해주세요";
-        else return todoTasks.toString();
+
+    //간편하게 Todotask 설정해보기! - 리스트의 addTodo를 처리하기 위함
+    public void simpleAddingTaskwAlarm(String taskName, LocalDate deadline, LocalDate alarm){
+        TodoTask task = new TodoTask(taskName);
+        LocalDate deadlineTemp=task.getDeadline();
+        deadlineTemp=deadline;
+        LocalDate alarmTemp=task.getAlarmTime();
+        alarmTemp=alarm;
+
+        todoTasks.add(task);
+    }
+    public void simpleAddingTaskwoAlarm(String taskName, LocalDate deadline){
+        TodoTask task = new TodoTask(taskName);
+        LocalDate deadlineTemp=task.getDeadline();
+        deadlineTemp=deadline;
+
+        todoTasks.add(task);
+    }
+
+    //todoApp.list(listname)을 처리하기 위한 메서드. task에 관한 모든 디테일을 보여줌.
+    public void viewTaskDetails() {
+        if (todoTasks.isEmpty()) throw new EmptyListException("Task를 추가하여 주십시오.");
+
+        for (int i = 0; i < todoTasks.size(); i = i + 1) {
+            TodoTask tempTask = todoTasks.get(i);
+            //완료여부 체크박스
+            String checkbox = "[-]";
+            if (tempTask.getCompleted() == true) {
+                checkbox = "[0]";
+            }
+            //할일 이름
+            String tempTaskName = tempTask.getName();
+            //데드라인
+            String tempDeadline = tempTask.getDeadline().format(formatters);
+            //알람 시간
+            String tempAlarmText = "";
+            if (tempTask.getAlarmTime() == null) tempAlarmText = "알람 미설정";
+            else tempAlarmText = tempTask.getAlarmTime().format(formatters);
+
+            String taskListString = String.format("%s  %s, 데드라인: %s, 알림시간: %s", checkbox, tempTaskName, tempDeadline, tempAlarmText);
+            System.out.println(taskListString);
+        }
+
+    }
+
+    public TodoTask findTask(String s) {
+        TodoTask temp = null;
+        for (int i = 0; i < todoTasks.size(); i = i + 1) {
+            if (todoTasks.get(i).getName().equalsIgnoreCase(s)) {
+                temp = todoTasks.get(i);
+            }
+        }return temp;
     }
 
 
+
+    //---------------------------getter 모음------------------------------------------
+    public String getName() {
+        return listName;
+    }
+
+    public String getList() throws EmptyListException{
+        if (todoTasks.isEmpty()) {throw new EmptyListException("목록이 비어있습니다. 할 일을 추가해주세요");}
+        return todoTasks.toString();
+    }
+    public int getSize(){
+        return todoTasks.size();
+    }
+    public String getTasks(){
+        String taskString = "";
+        for (int i=0;i<todoTasks.size();i=i+1){
+            String temp=todoTasks.get(i).getName();
+            taskString = taskString+","+temp;
+        }
+        return taskString;
+    }
 
 
     //--------------------------- 정렬 방식 -------------------------------------------
@@ -127,8 +201,10 @@ public class TodoList {
             return o1.getCreatingTime().compareTo(o2.getCreatingTime());
         }
     };
+    //날짜정렬
+    DateTimeFormatter formatters = DateTimeFormatter.ofPattern("uuuu.MM.d");
 
-
+/*완료여부가 compareTo가 안되어서 잠시 주석처리.
     //완료여부
     public final Comparator sortByCompleted = new Comparator<TodoTask>() {
 
@@ -136,7 +212,7 @@ public class TodoList {
         public int compare(TodoTask o1, TodoTask o2) {
             return o1.getCompleted().compareTo(o2.getCompleted());
         }
-    };
+    };*/
 }
 
 

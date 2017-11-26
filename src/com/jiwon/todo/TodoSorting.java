@@ -45,12 +45,12 @@ class TodoSorting {
 
 
 
-
+/*
     public final Comparator sortByCompleted = new Comparator<TodoTask>() {
 
         @Override
         public int compare(TodoTask o1, TodoTask o2) {
             return o1.getCompleted().compareTo(o2.getCompleted()); //boolean이라 비교 불가능이라는데 어떻게 해결하지
         }
-    };
+    };*/
 }
