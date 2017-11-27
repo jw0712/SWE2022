@@ -83,8 +83,9 @@ public class TodoMain {
 
         Scanner in = new Scanner(System.in).useDelimiter("\\n");
         TodoList list= null;
-        TodoTask task = null;
+        TodoTask task;
 
+        System.out.println("프로그램 종료시 exit 입력하세요.");
         System.out.println("현재 app 내의 리스트 목록과 태스크 개수");
         app.getSimpleInfoOfLists();
 
@@ -97,7 +98,11 @@ public class TodoMain {
 
         System.out.println("현재 포인터는 이 리스트를 가리키고 있습니다. " +
                 "리스트를 바꾸고 싶으시면 'changeList:'를 입력 후 리스트 이름을 입력하세요.");
-        System.out.println(list.getName());
+        try{System.out.println(list.getName());}
+        catch (NullPointerException ex){
+            System.out.println("app 내에 존재하는 리스트 이름을 적어주세요. 해당 리스트는 존재하지 않습니다.");
+        }//별로 nullpointexception은 굳이 처리하고 싶지 않았지만 intellij가 리뷰해줘서 추가함
+        //getName()이 다 nullpoint예외 뜬다고 리뷰해주었으나 초반에 리스트를 지정하므로 문제 없을 것 같아서 처리 안함.
 
 
         exit:
@@ -136,7 +141,8 @@ public class TodoMain {
                     String[] tempSplit = s.substring(8).split(",");
                     TodoTask addTodoTask= new TodoTask(tempSplit[0]);
 
-
+                    //이거 좀 논란이 있을 것 같지만 나중에 좀 더 많은 지식을 가진 후에 수정해보기...
+                    //처음부터 숫자가 오는데 그게 task이름일 수도 있고, task이름과 데드라인, 알림시간을 마구잡이로 쓸 수도 있어서 보완필요
                     if (tempSplit.length==1) list.simpleAddingTask(list, temp);
                     else if (tempSplit.length==2){
                         list.simpleAddingTaskwoAlarm(list, temp);
