@@ -98,23 +98,48 @@ public class TodoList {
     }
 
 
+
+
+
     //간편하게 Todotask 설정해보기! - 리스트의 addTodo를 처리하기 위함
-    public void simpleAddingTaskwAlarm(String taskName, LocalDate deadline, LocalDate alarm){
-        TodoTask task = new TodoTask(taskName);
-        LocalDate deadlineTemp=task.getDeadline();
-        deadlineTemp=deadline;
-        LocalDate alarmTemp=task.getAlarmTime();
-        alarmTemp=alarm;
-
-        todoTasks.add(task);
+    //s 형식: taskName,20180110,20171223 콤마로 구분
+    //1. 태스크 이름만 왔을 때
+    public void simpleAddingTask(TodoList list, String s){
+        String[] temp = s.split(",");
+        TodoTask task = new TodoTask(temp[0]);
+        list.addTask(task);
     }
-    public void simpleAddingTaskwoAlarm(String taskName, LocalDate deadline){
-        TodoTask task = new TodoTask(taskName);
-        LocalDate deadlineTemp=task.getDeadline();
-        deadlineTemp=deadline;
 
-        todoTasks.add(task);
+        //2. 태스크 이름과 데드라인만 왔을 때
+    public void simpleAddingTaskwAlarm(TodoList list, String s){
+        String[] temp = s.split(",");
+        TodoTask task = new TodoTask(temp[0]);
+
+        int yy = Integer.parseInt(temp[1].substring(0,4));
+        int mm = Integer.parseInt(temp[1].substring(4,6));
+        int dd = Integer.parseInt(temp[1].substring(6));
+        task.setSelectedDeadline(yy,mm,dd);
+
+        int ayy = Integer.parseInt(temp[2].substring(0,4));
+        int amm = Integer.parseInt(temp[2].substring(4,6));
+        int add = Integer.parseInt(temp[2].substring(6));
+        task.setAlarmTime(ayy,amm,add);
+
+        list.addTask(task);
+
+    }//3.태스크 이름, 데드라인, 알림시간까지 왔을 때
+    public void simpleAddingTaskwoAlarm(TodoList list, String s){
+        String[] temp = s.split(",");
+        TodoTask task = new TodoTask(temp[0]);
+        int yy = Integer.parseInt(temp[1].substring(0,4));
+        int mm = Integer.parseInt(temp[1].substring(4,6));
+        int dd = Integer.parseInt(temp[1].substring(6,8));
+        task.setSelectedDeadline(yy,mm,dd);
+        list.addTask(task);
     }
+
+
+
 
     //todoApp.list(listname)을 처리하기 위한 메서드. task에 관한 모든 디테일을 보여줌.
     public void viewTaskDetails() {

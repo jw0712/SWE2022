@@ -4,6 +4,7 @@ package com.jiwon.todo;
 
 
 import java.io.InputStream;
+
 import java.time.LocalDate;
 import java.util.Scanner;
 
@@ -75,6 +76,9 @@ public class TodoMain {
 
 
 
+
+
+
         //scanner-----------------------------------------------------------------------
 
         Scanner in = new Scanner(System.in).useDelimiter("\\n");
@@ -116,28 +120,31 @@ public class TodoMain {
                     System.out.println(list.getName()+"의 task 세부사항은 아래와 같습니다.");
                     list.viewTaskDetails();
                 }
-                //addtodo가 안된다1!!!!!!!!!!!!!!!!!!
-                //addTodo:할일명,날짜,알림날짜 명령을 입력받아 todo를 해당 리스트에 추가하고 다시 3번을 출력한다.
-                //아예 새롭게 다 재설정하는 것인지,<-일단 이걸로 처리.
-                //이미 task는 있는데 기한 혹은 알림 날짜를 수정하고자 한다는 것인지, 혹은 이미 todoTask가 생성되었지만 add가 안된 것을 추가한다는 것인지???
-                //입력형식: 할일명 2017 01 01 2017 01 02  띄어쓰기로 구분
+
+                /*addTodo:할일명,날짜,알림날짜 명령을 입력받아 todo를 해당 리스트에 추가하고 다시 3번을 출력한다.
+                -아예 새롭게 다 재설정하는 것인지,<-일단 이걸로 처리.
+                -이미 task는 있는데 기한 혹은 알림 날짜를 수정하고자 한다는 것인지<-addTodo보다는 editTodo가 더 나을 듯
+
+                -입력형식: 할일명,20170101,20170102  콤마로 구분
+                -입력예시1: buyFlowers,20171201,20171130 -> buyFlowers : 기한 2017.12.01 , 알림날짜: 2017,11,30
+                -입력예시2: buyFlowers,20171201,스페이스바 -> buyFlowers: 기한 2017.12.01, 알림 미설정
+                -입력예시3: buyFlowers,, -> buyFlowers: 기한 오늘, 알림 미설정*/
+
                 else if (s.startsWith("addTodo:")) {
                     System.out.println("이 task는 " + list.getName() + "에 추가되었습니다.");
-                    String taskName=s.substring(8,)
+                    String temp = s.substring(8);
+                    String[] tempSplit = s.substring(8).split(",");
+                    TodoTask addTodoTask= new TodoTask(tempSplit[0]);
 
-                    task.setName(taskName);
 
-                    //deadline yymmdd
-                    int dy= Integer.parseInt(in.next());
-                    int dm= Integer.parseInt(in.next());
-                    int dd= Integer.parseInt(in.next());
-                    task.setSelectedDeadline(dy,dm,dd);
-                    System.out.println(task.getDeadline());
-                    task.setAlarmTime(2017,12,11);
+                    if (tempSplit.length==1) list.simpleAddingTask(list, temp);
+                    else if (tempSplit.length==2){
+                        list.simpleAddingTaskwoAlarm(list, temp);
+                    }else list.simpleAddingTaskwAlarm(list, temp);
 
-                    list.addTask(task);
                     list.viewTaskDetails();
-                    }
+                }
+
                 else if (s.startsWith("changeList:")){
                     s=s.substring(11);
                     list=app.findList(s);
@@ -147,17 +154,18 @@ public class TodoMain {
                     s=s.substring(9);
                     task=list.findTask(s);
                     task.complete(task);
+                    System.out.println("complete: "+task.getName());
                 }
                 else if (s.startsWith("incomplete:")){
                     s=s.substring(11);
                     task=list.findTask(s);
                     task.incomplete(task);
-
+                    System.out.println("incomplete: "+task.getName());
+                }
+                else if (s.startsWith("exit")){
+                    break exit;
                 }
                 }
-
-                /*if ("exit".equals(s)) break exit;
-                keys.get(s).click();*/
             }
         }
 

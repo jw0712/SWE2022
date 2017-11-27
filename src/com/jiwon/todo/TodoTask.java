@@ -41,15 +41,15 @@ public class TodoTask{
     }
     //수동으로 완료 처리하기
     //complete(taskname): 할일 이름을 받아 해당 task.completed = true 후 완료상태, 이름 리턴
-    public String complete(TodoTask task){
+
+    public void complete(TodoTask task){
         task.completed = true;
-        return "complete: "+task.getName();
+
     }
     //수동으로 미완료 처리하기
     //incomplete(taskname): task.incompleted로 처리 후 완료상태, 이름 리턴
-    public String incomplete(TodoTask task){
+    public void incomplete(TodoTask task){
         task.completed=false;
-        return "incomplete: "+task.getName();
     }
 
 
@@ -87,7 +87,9 @@ public class TodoTask{
         return LocalDate.now().equals(this.alarmTime);
     }
     //미리 알림 해주기
+    //task가 완료되면 알림시간이 완료시점보다 미래여도 알림 자체가 울리지 않음.(실제 todo앱) 알림 시간은 존재하나 울려줄 필요x
     public boolean isAlarm(TodoTask task){
+        if (isCompletedTask(task)) return false;
         if (task.check()==true) return true;
         else return false;
     }
