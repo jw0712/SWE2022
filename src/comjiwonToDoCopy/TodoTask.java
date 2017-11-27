@@ -1,4 +1,4 @@
-package com.jiwon.todo;
+package comjiwonToDoCopy;
 
 import java.time.LocalDate;
 
@@ -40,14 +40,13 @@ public class TodoTask{
 
     }
     //수동으로 완료 처리하기
-    //complete(taskname): 할일 이름을 받아 해당 task.completed = true 후 완료상태, 이름 리턴
-
+    //complete(taskname): 할일 이름을 받아 해당 task.completed = true
     public void complete(TodoTask task){
         task.completed = true;
 
     }
     //수동으로 미완료 처리하기
-    //incomplete(taskname): task.incompleted로 처리 후 완료상태, 이름 리턴
+    //incomplete(taskname): task.incompleted로 처리
     public void incomplete(TodoTask task){
         task.completed=false;
     }
@@ -96,7 +95,7 @@ public class TodoTask{
 
 
 
-    //getter 모음 --------------------------------------------------------------------------
+//getter 모음 --------------------------------------------------------------------------
     public String getName() {
         return this.taskName;
     }
@@ -116,4 +115,8 @@ public class TodoTask{
     public LocalDate getAlarmTime(){
         return this.alarmTime;
     }
+
+
+
+
 }

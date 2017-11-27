@@ -1,6 +1,5 @@
-package com.jiwon.todo;
+package comjiwonToDoCopy;
 
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,6 +10,7 @@ public class TodoList {
     /*가지고 있어야 할 것
     속성: 이름, task목록, 테마
     메소드: 이름 수정, 정렬하기, 테마 변경, 목록 삭제, 할일 추가, 빈목록출력(getlist)
+
     <과제3>
     addTodo (taskname, deadline, alarmDate) : todoList에 추가하고 리스트 출력
           출력 형식: [완료여부] 할일명, 완료일, 데드라인, 알림여부
@@ -105,43 +105,70 @@ public class TodoList {
     //1. 태스크 이름만 왔을 때
     public void simpleAddingTask(TodoList list, String s){
         String[] temp = s.split(",");
-        TodoTask task = new TodoTask(temp[0]);
-        list.addTask(task);
+        if (temp[0].equals("")){
+            temp[0]=null;}
+        try{
+            TodoTask task = new TodoTask(temp[0]);
+        list.addTask(task);}catch(NullPointerException e){System.out.println("taskName은 필수 입력 사항입니다.");}
     }
 
-    //2. 태스크 이름과 데드라인만 왔을 때
+        //2. 태스크 이름과 데드라인, 알람시간 모두 왔을 때
     public void simpleAddingTaskwAlarm(TodoList list, String s){
         String[] temp = s.split(",");
-        TodoTask task = new TodoTask(temp[0]);
 
-        int yy = Integer.parseInt(temp[1].substring(0,4));
-        int mm = Integer.parseInt(temp[1].substring(4,6));
-        int dd = Integer.parseInt(temp[1].substring(6));
-        task.setSelectedDeadline(yy,mm,dd);
+        //이름 미입력 -> ""로 처리되어서 null point 예외로 처리하려고 null처리 (별로 좋은 방법같진 않음)
+        if (temp[0].equals("")){
+            temp[0]=null;
+        }
+        try {
+            TodoTask task = new TodoTask(temp[0]);
 
-        int ayy = Integer.parseInt(temp[2].substring(0,4));
-        int amm = Integer.parseInt(temp[2].substring(4,6));
-        int add = Integer.parseInt(temp[2].substring(6));
-        task.setAlarmTime(ayy,amm,add);
+            int yy = Integer.parseInt(temp[1].substring(0, 4));
+            int mm = Integer.parseInt(temp[1].substring(4, 6));
+            int dd = Integer.parseInt(temp[1].substring(6));
+            task.setSelectedDeadline(yy, mm, dd);
 
-        list.addTask(task);
+            int ayy = Integer.parseInt(temp[2].substring(0, 4));
+            int amm = Integer.parseInt(temp[2].substring(4, 6));
+            int add = Integer.parseInt(temp[2].substring(6));
+            task.setAlarmTime(ayy, amm, add);
 
-    }//3.태스크 이름, 데드라인, 알림시간까지 왔을 때
-    public void simpleAddingTaskwoAlarm(TodoList list, String s){
-        String[] temp = s.split(",");
-        TodoTask task = new TodoTask(temp[0]);
-        int yy = Integer.parseInt(temp[1].substring(0,4));
-        int mm = Integer.parseInt(temp[1].substring(4,6));
-        int dd = Integer.parseInt(temp[1].substring(6,8));
-        task.setSelectedDeadline(yy,mm,dd);
-        list.addTask(task);
+            list.addTask(task);
+        }catch(IndexOutOfBoundsException ex){
+            System.out.println("날짜형식은 yyyymmdd로 8자리수를 맞추어야 합니다.");
+        }catch(IllegalArgumentException e){
+            System.out.println("taskName 이후에는 yyyymmdd 형태의 날짜 형식이 와야 합니다.");
+        }catch(NullPointerException e){
+            System.out.println("taskName은 필수 입력 사항입니다.");
+        }
+
     }
+    //3.태스크 이름, 데드라인만 왔을 때
+        public void simpleAddingTaskwoAlarm(TodoList list, String s){
+        String[] temp = s.split(",");
+        if (temp[0].equals("")){
+            temp[0]=null;
+        }
 
-
+        try{
+            TodoTask task = new TodoTask(temp[0]);
+            int yy = Integer.parseInt(temp[1].substring(0,4));
+            int mm = Integer.parseInt(temp[1].substring(4,6));
+            int dd = Integer.parseInt(temp[1].substring(6,8));
+            task.setSelectedDeadline(yy,mm,dd);
+            list.addTask(task);
+        }catch(IndexOutOfBoundsException ex){
+            System.out.println("날짜형식은 yyyymmdd로 8자리 숫자로 작성해야 합니다.");
+        }catch(IllegalArgumentException e){
+            System.out.println("taskName 이후에는 yyyymmdd 형태의 숫자 형식이 와야 합니다.");
+        }catch(NullPointerException e){
+            System.out.println("taskName은 필수 입력 사항입니다.");
+        }
+        }
 
 
     //todoApp.list(listname)을 처리하기 위한 메서드. task에 관한 모든 디테일을 보여줌.
-    public void viewTaskDetails() {
+    public void viewTaskDetails() throws EmptyListException {
         if (todoTasks.isEmpty()) throw new EmptyListException("Task를 추가하여 주십시오.");
 
         for (int i = 0; i < todoTasks.size(); i = i + 1) {
@@ -166,6 +193,7 @@ public class TodoList {
 
     }
 
+    //task찾기 - TodoMain 에서 complete, incomplete 처리 위해 추가
     public TodoTask findTask(String s) {
         TodoTask temp = null;
         for (int i = 0; i < todoTasks.size(); i = i + 1) {
@@ -182,7 +210,7 @@ public class TodoList {
         return listName;
     }
 
-    public String getList() throws EmptyListException{
+    public String getList() throws EmptyListException {
         if (todoTasks.isEmpty()) {throw new EmptyListException("목록이 비어있습니다. 할 일을 추가해주세요");}
         return todoTasks.toString();
     }
@@ -231,10 +259,12 @@ public class TodoList {
 /*완료여부가 compareTo가 안되어서 잠시 주석처리.
     //완료여부
     public final Comparator sortByCompleted = new Comparator<TodoTask>() {
+
         @Override
         public int compare(TodoTask o1, TodoTask o2) {
             return o1.getCompleted().compareTo(o2.getCompleted());
         }
     };*/
 }
+
 

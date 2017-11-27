@@ -1,4 +1,4 @@
-package com.jiwon.todo;
+package comjiwonToDoCopy;
 
 import java.util.ArrayList;
 
@@ -53,11 +53,12 @@ public class TodoApp {
         if (!todoLists.contains(list)) throw new IllegalArgumentException("해당 리스트가 존재하지 않습니다.");
         System.out.println("TodoList: "+list.getName());
         list.viewTaskDetails();
-    }
+        }
 
 
     public TodoList findList(String s){
         TodoList temp = null;
+
         for(int i=0;i<todoLists.size();i=i+1){
             if(todoLists.get(i).getName().equalsIgnoreCase(s)) {
                 temp = todoLists.get(i);
@@ -78,7 +79,6 @@ public class TodoApp {
 }
 
 
-
 /*EmptyListException: 리스트가 비어있을 경우, 추가, 삭제, 정렬, 받아오기 등의 메서드 실행 불가
 * 자바에서 제공하는 예외 중 IllegalArgumentException도 있다고 하는데 잘 모르겠어서 checked Exception 생성
 * 일단 비어있는 리스트에서 어떤 메서드를 실행하는 것은 상태불량이니 Illegal State*/
@@ -96,5 +96,6 @@ class EmptyListException extends IllegalStateException {
         switch (option){
             case("ascending"): Collections.sort(listStringVer);break;
             case("descending"): Collections.sort(listStringVer); Collections.reverse(listStringVer);break;
+
     }
         */

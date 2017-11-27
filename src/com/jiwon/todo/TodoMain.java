@@ -33,7 +33,7 @@ public class TodoMain {
         TodoApp app= new TodoApp("app");
 
         //remove확인 : 잘 실행됨
-       // System.out.println("\n"+"remove 확인:빈 목록에서 삭제");
+        // System.out.println("\n"+"remove 확인:빈 목록에서 삭제");
         //app.removeList(assignment);
 
         //테스트 앱에 집에서 할일, 학교과제 추가
@@ -129,7 +129,6 @@ public class TodoMain {
                 /*addTodo:할일명,날짜,알림날짜 명령을 입력받아 todo를 해당 리스트에 추가하고 다시 3번을 출력한다.
                 -아예 새롭게 다 재설정하는 것인지,<-일단 이걸로 처리.
                 -이미 task는 있는데 기한 혹은 알림 날짜를 수정하고자 한다는 것인지<-addTodo보다는 editTodo가 더 나을 듯
-
                 -입력형식: 할일명,20170101,20170102  콤마로 구분
                 -입력예시1: buyFlowers,20171201,20171130 -> buyFlowers : 기한 2017.12.01 , 알림날짜: 2017,11,30
                 -입력예시2: buyFlowers,20171201,스페이스바 -> buyFlowers: 기한 2017.12.01, 알림 미설정
@@ -171,11 +170,10 @@ public class TodoMain {
                 else if (s.startsWith("exit")){
                     break exit;
                 }
-                }
             }
         }
-
-
     }
 
+
+}
 
