@@ -1,5 +1,6 @@
 package com.jiwon.todo;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -7,7 +8,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 
-public class TodoList {
+public class TodoList implements Serializable {
     /*가지고 있어야 할 것
     속성: 이름, task목록, 테마
     메소드: 이름 수정, 정렬하기, 테마 변경, 목록 삭제, 할일 추가, 빈목록출력(getlist)
@@ -154,11 +155,11 @@ public class TodoList {
             //할일 이름
             String tempTaskName = tempTask.getName();
             //데드라인
-            String tempDeadline = tempTask.getDeadline().format(formatters);
+            String tempDeadline = tempTask.getDeadline().format(DateTimeFormatter.ofPattern("uuuu.MM.d"));
             //알람 시간
             String tempAlarmText = "";
             if (tempTask.getAlarmTime() == null) tempAlarmText = "알람 미설정";
-            else tempAlarmText = tempTask.getAlarmTime().format(formatters);
+            else tempAlarmText = tempTask.getAlarmTime().format(DateTimeFormatter.ofPattern("uuuu.MM.d"));
 
             String taskListString = String.format("%s  %s, 데드라인: %s, 알림시간: %s", checkbox, tempTaskName, tempDeadline, tempAlarmText);
             System.out.println(taskListString);
@@ -225,8 +226,7 @@ public class TodoList {
             return o1.getCreatingTime().compareTo(o2.getCreatingTime());
         }
     };
-    //날짜정렬
-    DateTimeFormatter formatters = DateTimeFormatter.ofPattern("uuuu.MM.d");
+
 
 /*완료여부가 compareTo가 안되어서 잠시 주석처리.
     //완료여부

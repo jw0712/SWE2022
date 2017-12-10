@@ -1,8 +1,9 @@
 package com.jiwon.todo;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class TodoTask{
+public class TodoTask implements Serializable{
     /*가지고 있어야 할 것
     * 메소드: 완료여부 체크, 이름 수정하기, 미리 할일인지 알람해주기, 기한설정
     * 속성: 완료여부, 이름, 기한

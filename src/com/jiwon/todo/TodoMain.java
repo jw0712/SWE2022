@@ -1,20 +1,23 @@
 package com.jiwon.todo;
 
 
+//1208과제 : save . load
 
+import java.io.*;
 
-import java.io.InputStream;
-
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.Scanner;
-
 import static java.lang.System.in;
 
 public class TodoMain {
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         //집에서 할 일 3가지 : 청소, 빨래, 쓰레기통 비우기
-        TodoList home= new TodoList("home");
+        TodoList home = new TodoList("home");
         TodoTask cleaning = new TodoTask("cleaning");
         TodoTask laundry = new TodoTask("laundry");
         TodoTask trash = new TodoTask("trash");
@@ -30,7 +33,7 @@ public class TodoMain {
         assignment.addTask(essay);
 
 
-        TodoApp app= new TodoApp("app");
+        TodoApp app = new TodoApp("app");
 
         //remove확인 : 잘 실행됨
         // System.out.println("\n"+"remove 확인:빈 목록에서 삭제");
@@ -41,14 +44,14 @@ public class TodoMain {
         app.addList(assignment);
 
         //알림 설정해주기
-        trash.setAlarmTime(2017,12,1);
-        task1.setAlarmTime(2017,12,3);
+        trash.setAlarmTime(2017, 12, 25);
+        task1.setAlarmTime(2017, 12, 26);
 
         //데드라인 설정 (사용자가 설정함)
-        laundry.setSelectedDeadline(2017,12,10);
+        laundry.setSelectedDeadline(2017, 12, 31);
         cleaning.setDeadlineOptions("tomorrow");
         essay.setDeadlineOptions("nextWeek");
-        task1.setSelectedDeadline(2017,12,15);
+        task1.setSelectedDeadline(2017, 12, 30);
 
         //완료여부 처리해보기
         laundry.complete(laundry);
@@ -75,14 +78,10 @@ public class TodoMain {
         app.removeList(weekend);*/
 
 
-
-
-
-
         //scanner-----------------------------------------------------------------------
 
         Scanner in = new Scanner(System.in).useDelimiter("\\n");
-        TodoList list= null;
+        TodoList list = null;
         TodoTask task;
 
         System.out.println("프로그램 종료시 exit 입력하세요.");
@@ -93,13 +92,16 @@ public class TodoMain {
         try {
             String listname = in.next();
             list = app.findList(listname);
-        }catch(IllegalArgumentException ex) {System.out.println("해당 리스트가 app에 존재하지 않습니다. " +
-                "새로운 리스트를 처리하고 싶은 경우, addList를 진행한 후 다시 시도해주세요.");}
+        } catch (IllegalArgumentException ex) {
+            System.out.println("해당 리스트가 app에 존재하지 않습니다. " +
+                    "새로운 리스트를 처리하고 싶은 경우, addList를 진행한 후 다시 시도해주세요.");
+        }
 
         System.out.println("현재 포인터는 이 리스트를 가리키고 있습니다. " +
                 "리스트를 바꾸고 싶으시면 'changeList:'를 입력 후 리스트 이름을 입력하세요.");
-        try{System.out.println(list.getName());}
-        catch (NullPointerException ex){
+        try {
+            System.out.println(list.getName());
+        } catch (NullPointerException ex) {
             System.out.println("app 내에 존재하는 리스트 이름을 적어주세요. 해당 리스트는 존재하지 않습니다.");
         }//별로 nullpointexception은 굳이 처리하고 싶지 않았지만 intellij가 리뷰해줘서 추가함
         //getName()이 다 nullpoint예외 뜬다고 리뷰해주었으나 초반에 리스트를 지정하므로 문제 없을 것 같아서 처리 안함.
@@ -112,17 +114,17 @@ public class TodoMain {
                 String s = in.next();
 
                 //addList:리스트명 형식의 입력을 받아 리스트를 app에 추가한 뒤 app 출력
-                if(s.startsWith("addList:")){
-                    s=s.substring(8);
+                if (s.startsWith("addList:")) {
+                    s = s.substring(8);
                     TodoList s1 = new TodoList(s);
                     app.addList(s1);
                     app.getSimpleInfoOfLists();
                 }
                 //list:리스트명 형식의 입력을 받아 해당 리스트를 출력
-                else if (s.startsWith("list:")){
-                    s=s.substring(5);
-                    list=app.findList(s);
-                    System.out.println(list.getName()+"의 task 세부사항은 아래와 같습니다.");
+                else if (s.startsWith("list:")) {
+                    s = s.substring(5);
+                    list = app.findList(s);
+                    System.out.println(list.getName() + "의 task 세부사항은 아래와 같습니다.");
                     list.viewTaskDetails();
                 }
 
@@ -138,42 +140,69 @@ public class TodoMain {
                     System.out.println("이 task는 " + list.getName() + "에 추가되었습니다.");
                     String temp = s.substring(8);
                     String[] tempSplit = s.substring(8).split(",");
-                    TodoTask addTodoTask= new TodoTask(tempSplit[0]);
+                    TodoTask addTodoTask = new TodoTask(tempSplit[0]);
 
                     //이거 좀 논란이 있을 것 같지만 나중에 좀 더 많은 지식을 가진 후에 수정해보기...
                     //처음부터 숫자가 오는데 그게 task이름일 수도 있고, task이름과 데드라인, 알림시간을 마구잡이로 쓸 수도 있어서 보완필요
-                    if (tempSplit.length==1) list.simpleAddingTask(list, temp);
-                    else if (tempSplit.length==2){
+                    if (tempSplit.length == 1) list.simpleAddingTask(list, temp);
+                    else if (tempSplit.length == 2) {
                         list.simpleAddingTaskwoAlarm(list, temp);
-                    }else list.simpleAddingTaskwAlarm(list, temp);
+                    } else list.simpleAddingTaskwAlarm(list, temp);
 
                     list.viewTaskDetails();
-                }
-
-                else if (s.startsWith("changeList:")){
-                    s=s.substring(11);
-                    list=app.findList(s);
-                    System.out.println("현재 포인터가 가리키는 리스트는 "+list.getName()+"입니다.");
-                }
-                else if (s.startsWith("complete:")){
-                    s=s.substring(9);
-                    task=list.findTask(s);
+                } else if (s.startsWith("changeList:")) {
+                    s = s.substring(11);
+                    list = app.findList(s);
+                    System.out.println("현재 포인터가 가리키는 리스트는 " + list.getName() + "입니다.");
+                } else if (s.startsWith("complete:")) {
+                    s = s.substring(9);
+                    task = list.findTask(s);
                     task.complete(task);
-                    System.out.println("complete: "+task.getName());
-                }
-                else if (s.startsWith("incomplete:")){
-                    s=s.substring(11);
-                    task=list.findTask(s);
+                    System.out.println("complete: " + task.getName());
+                } else if (s.startsWith("incomplete:")) {
+                    s = s.substring(11);
+                    task = list.findTask(s);
                     task.incomplete(task);
-                    System.out.println("incomplete: "+task.getName());
-                }
-                else if (s.startsWith("exit")){
+                    System.out.println("incomplete: " + task.getName());
+                } else if (s.startsWith("save")) {
+                    Save.main();
+                    break exit;
+                } else if (s.startsWith("exit")) {
                     break exit;
                 }
             }
         }
+
     }
 
+    static class Save implements Serializable {
 
-}
+    static public void main(){
+        try {
+            TodoApp app= new TodoApp("app");
+            Path p =  Paths.get("c:/test","test.txt");
+            if (!Files.exists(p)) Files.createFile(p);
+            Writer out = Files.newBufferedWriter(p, StandardCharsets.UTF_8);
+            out.write("test");
+            out.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
+        try {
+            TodoApp app= new TodoApp("app");
+            Path p =  Paths.get("c:/test","test.txt");
+            if (!Files.exists(p)) Files.createFile(p);
+            ObjectOutputStream out = new ObjectOutputStream(Files.newOutputStream(p));
+            out.reset();
+            out.writeObject(app);
+            ObjectInputStream in = new ObjectInputStream(Files.newInputStream(p));
+            TodoApp app1 = (TodoApp)in.readObject();
+            System.out.println(app1);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+}}

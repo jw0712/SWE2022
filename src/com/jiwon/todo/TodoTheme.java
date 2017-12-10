@@ -1,6 +1,8 @@
 package com.jiwon.todo;
 
-public class TodoTheme {
+import java.io.Serializable;
+
+public class TodoTheme implements Serializable {
     private TodoThemeColors themeColor;
     private TodoThemeImages themeImage;
 

@@ -1,10 +1,11 @@
 package com.jiwon.todo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /*try ~ catch 문을 사용해서 예외처리 하고 싶었으나 상황별로 어떻게 나눌지 헷갈려서 if~ throw 처리*/
 
-public class TodoApp {
+public class TodoApp implements Serializable {
     ArrayList<TodoList> todoLists;
     String appName;
 
@@ -33,7 +34,8 @@ public class TodoApp {
     }
 
     //getSimpleInfoOfLists : 리스트를 개괄적으로 보여준다. 리스트 이름과 그 리스트 안의 할 일 개수 리턴
-    public void getSimpleInfoOfLists() throws EmptyListException {
+    public String getSimpleInfoOfLists() throws EmptyListException {
+        String temp = "";
         if (todoLists.isEmpty()) {
             throw new EmptyListException("App이 비어있습니다. 목록을 추가해주세요.");
         }
@@ -44,7 +46,8 @@ public class TodoApp {
 
             String listString = String.format("-TodoList이름: %s => TodoTask 개수: %d",listNames, listSize);
             System.out.println(listString);
-        }
+            temp = temp+"\n"+listString;
+        }return temp;
     }
     /*list(String listname): listname이라는 해당 리스트를 출력.
     app이 list 디테일을 알 필요가 없으므로 todoList에게 가지고 있는 task 디테일을 요구.*/
